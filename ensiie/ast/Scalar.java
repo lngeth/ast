@@ -15,6 +15,10 @@ public class Scalar implements Node {
         return this.value;
     }
 
+    public void set(int value) {
+        this.value = value;
+    }
+
     public int execute() {
         return this.value;
     }

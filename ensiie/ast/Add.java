@@ -1,12 +1,9 @@
 package ensiie.ast;
 
-public class Add implements Node {
-    Scalar left;
-    Scalar right;
+public class Add extends Operation {
 
-    public Add(Scalar left, Scalar right) {
-        this.left = left;
-        this.right = right;
+    public Add(Node left, Node right) {
+        super(left, right);
     }
 
     /**
@@ -14,13 +11,14 @@ public class Add implements Node {
      * @return int result of the addition
      */
     public int execute() {
-        return this.left.get() + this.right.get();
+        return this.op(0).execute() + this.op(1).execute();
     }
 
     /**
-     * Get the string format of the addition's operation
+     * Get the addition operator in String format
+     * @return String format of '+' operator
      */
-    public String toString() {
-        return "(+" + this.left.get() + " " + this.right.get() + ")";
+    public String opString() {
+        return "+";
     }
 }
