@@ -1,6 +1,18 @@
 package ensiie.ast;
 
 public class Main {
+    /**
+     * Print method to check Class characteristics (toString) & evaluation (execute)
+     * @param name String name of the Class
+     * @param node Node instance to analyse
+     */
+    public static void testPrintClass(String name, Node node, boolean endline) {
+        System.out.println("Test " + name + " :");
+        System.out.println(node);
+        System.out.println(node.execute());
+        if (endline)
+            System.out.println("----------------");
+    }
     public static void main(String[] args) {
         // All Scalar
         Scalar s_0 = new Scalar(0);
@@ -15,69 +27,58 @@ public class Main {
         Scalar s_42 = new Scalar(42);
         Scalar s_666 = new Scalar(666);
 
-        // Test calculation
-        Add add1 = new Add(s_1, s_2);
-        Add add2 = new Add(s_3, s_4);
-        Neg neg2 = new Neg(add2);
-        Add add3 = new Add(add1, neg2);
-        System.out.println(add3);
-        System.out.println(add3.execute());
+        // All instance of Class
+        Add add;
+        Variable x;
+        Set set;
+        Echo echo;
+        If ifcond;
+        Begin begin;
+        While whilebloc;
+
+        // Test Add
+        add = new Add(new Add(s_1, s_2), new Add(s_3, s_4));
+        testPrintClass("Add", add, true);
+
+        // Test Neg
+        add = new Add(new Add(s_1, s_2), new Neg(new Add(s_3, s_4)));
+        testPrintClass("Neg", add, true);
 
         // Test Variable
-        System.out.println("----------------");
-        Variable x = new Variable("x");
-        Add add4 = new Add(x, s_20);
+        x = new Variable("x");
         System.out.println(x);
-        System.out.println(add4);
-        System.out.println(add4.execute());
+        add = new Add(x, s_20);
+        testPrintClass("Variable", add, true);
 
         // Test Set
-        System.out.println("----------------");
-        Set set1 = new Set(x, s_22);
-        System.out.println(set1);
-        System.out.println(set1.execute());
-        Add add5 = new Add(x, s_20);
-        System.out.println(add5);
-        System.out.println(add5.execute());
+        testPrintClass("Set", new Set(x, s_22), false);
+        add = new Add(x, s_20);
+        testPrintClass("Add after Set", add, true);
 
         // Test Echo
-        System.out.println("----------------");
-        Echo echo1 = new Echo(add1);
-        Add add6 = new Add(echo1, s_7);
-        System.out.println(add6);
-        System.out.println(add6.execute());
+        add = new Add(new Echo(new Add(s_1, s_2)), s_7);
+        testPrintClass("Echo", add, true);
 
         // Test If
-        System.out.println("----------------");
-        If if1 = new If(s_1, s_42, s_666);
-        System.out.println(if1);
-        System.out.println(if1.execute());
-        If if2 = new If(s_0, s_42, s_666);
-        System.out.println(if2);
-        System.out.println(if2.execute());
+        ifcond = new If(s_1, s_42, s_666);
+        testPrintClass("If cond != 0", ifcond, false);
+        ifcond = new If(s_0, s_42, s_666);
+        testPrintClass("If cond == 0", ifcond, true);
 
         // Test Begin
-        System.out.println("----------------");
-        Echo echo0 = new Echo(s_0);
-        Begin begin1 = new Begin(echo0, s_42);
-        If if3 = new If(s_1, begin1, s_666);
-        System.out.println(if3);
-        System.out.println(if3.execute());
+        echo = new Echo(s_0);
+        begin = new Begin(echo, s_42);
+        ifcond = new If(s_1, begin, s_666);
+        testPrintClass("Begin", ifcond, true);
 
         // Test While
-        System.out.println("----------------");
-        Variable x2 = new Variable("x");
-        Echo echo2 = new Echo(x2);
-        Set set2 = new Set(x2, new Add(x2, s_1));
-        Begin begin2 = new Begin(echo2, set2);
-        Lt lt1 = new Lt(x2, s_10);
-        While while1 = new While(lt1, begin2);
-        Set set3 = new Set(x2, s_0);
-        Begin begin3 = new Begin(set3, while1);
-        System.out.println(begin3);
-        System.out.println("Resultat final : " + begin3.execute());
+        x = new Variable("x"); // Reset the x Variable
+        set = new Set(x, new Add(x, s_1)); // (set! x (+ x 1))
+        begin = new Begin(new Echo(x), set); // (begin (echo x) (set! ...))
+        whilebloc = new While(new Lt(x, s_10), begin); // (while (< x 10) (begin ...))
+        testPrintClass("While", new Begin(new Set(x, s_0), whilebloc), true);
 
-        
+        // Exercice 5.e. Interpretation and computation of expected value
         int x_true = 0;
         while (x_true < 10) {
             x_true += 1;

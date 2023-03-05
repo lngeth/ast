@@ -16,5 +16,10 @@ make
 
 ## Choix d'implémentation
 
+### Dans le Main
+
+- Vous trouverez donc beaucoup de **classe anonyme** car :
+Parfois, je jugeais que la visibilité du code ne serait pas altérer si je ne sauvegardais pas une instance d'une classe dans une variable.
+
 
 ### Remarques générales
