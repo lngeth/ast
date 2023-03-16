@@ -18,7 +18,7 @@ make
 
 ### Dans le Main
 
-- Les Scalars pouvaient être crées dans un tableau allant de 1 à 1000, mais vu qu'on utilise que certains Scalar, je trouvais plus pertinent de créer uniquement les variables qu'on aurait besoin au cours du DM.
+- Les instances de Scalars pouvaient être créés dans un tableau allant de 1 à 1000, mais vu qu'on utilise que certains d'autres eux, je trouvais plus pertinent de créer uniquement les variables dont on aurait besoin au cours du DM.
 
 - Simplification en **classe anonyme** car :
 Parfois, je jugeais que la visibilité du code ne serait pas altérer si je ne sauvegardais pas une instance d'une classe dans une variable.
@@ -26,6 +26,6 @@ Parfois, je jugeais que la visibilité du code ne serait pas altérer si je ne s
 
 ### Améliorations possibles
 
-Ranger les classes dans des packages :
-- les classes ayant les "mêmes" fonctionnalités sont dans un même package
-- augmenter la visibilité de la structure du projet (dossiers)
+Ranger les classes dans des **packages** :
+- les classes ayant les "mêmes" fonctionnalités sont dans un même package.
+- augmenter la visibilité de la structure du projet (dossiers).
