@@ -10,8 +10,11 @@ IDE utilisé : Visual Studio Code .
 ## Lancer le projet
 
 **Dans le dossier ast**, exécuter la commande suivante en ligne de commande :
-```|shell
+```bash
+# sous windows
 make
+# sous linux
+make main-linux
 ```
 
 ## Choix d'implémentation
